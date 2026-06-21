@@ -1,0 +1,77 @@
+/* about page */
+.about-page {
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 30px 16px;
+}
+
+.about-card {
+  max-width: 760px;
+  width: 100%;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  height: fit-content;
+}
+
+.about-title {
+  font-size: 26px;
+  margin-bottom: 14px;
+}
+
+.about-subtitle {
+  font-size: 18px;
+  margin: 24px 0 12px;
+}
+
+.about-text {
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.tech-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.tech-group {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.tech-group h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+.tech-group ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tech-group li {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .tech-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card {
+    padding: 22px;
+  }
+}

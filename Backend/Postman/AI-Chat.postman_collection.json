@@ -1,0 +1,128 @@
+{
+  "info": {
+    "name": "AI Chat",
+    "_postman_id": "b1f0c9a2-7d3e-4a6b-9c8d-2e1f4a5b6c7d",
+    "description": "REST API for the AI Chat full-stack project. Set {{baseUrl}} and run 'Create Conversation' first to populate {{conversationId}} automatically.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "conversationId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "health"]
+        },
+        "description": "Verify that the backend is running."
+      },
+      "response": []
+    },
+    {
+      "name": "Create Conversation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();",
+              "if (json && json.id) {",
+              "    pm.collectionVariables.set('conversationId', json.id);",
+              "    console.log('Saved conversationId =', json.id);",
+              "}",
+              "pm.test('status is 201', function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": null\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/conversations",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "conversations"]
+        },
+        "description": "Create a new conversation. The test script saves the new id into {{conversationId}}."
+      },
+      "response": []
+    },
+    {
+      "name": "Send Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"content\": \"Hello! Can you explain what an API is in one sentence?\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/conversations/{{conversationId}}/messages",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "conversations", "{{conversationId}}", "messages"]
+        },
+        "description": "Send a user message. The backend saves it, asks OpenAI using the full conversation history, saves the reply, and returns the assistant message."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Conversation Messages",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/conversations/{{conversationId}}/messages",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "conversations", "{{conversationId}}", "messages"]
+        },
+        "description": "Return all messages of the conversation in chronological order."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Conversation",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/conversations/{{conversationId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "conversations", "{{conversationId}}"]
+        },
+        "description": "Delete a conversation and all of its messages."
+      },
+      "response": []
+    }
+  ]
+}

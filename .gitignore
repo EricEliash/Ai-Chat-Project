@@ -1,0 +1,30 @@
+# ---------- Environment ----------
+.env
+Backend/.env
+Frontend/.env
+
+# ---------- Python ----------
+env/
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# ---------- Node / Frontend ----------
+node_modules/
+Frontend/node_modules/
+dist/
+Frontend/dist/
+
+# ---------- Editors / OS ----------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# NOTE: the following are intentionally NOT ignored and must be committed:
+#   .env.example
+#   Backend/requirements.txt
+#   Database/*.sql
+#   Backend/Postman/*.json
